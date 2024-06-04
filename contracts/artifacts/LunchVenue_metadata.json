@@ -98,6 +98,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "isActive",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "manager",
 				"outputs": [
 					{
@@ -151,6 +164,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "restaurantExists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -165,6 +197,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "stopContract",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -268,6 +307,9 @@
 				},
 				"doVote(uint256)": {
 					"notice": "Vote for a restaurant"
+				},
+				"stopContract()": {
+					"notice": "stop the contract"
 				}
 			},
 			"version": 1
@@ -275,7 +317,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/LunchVenue.sol": "LunchVenue"
+			"contracts/LunVenue_update.sol": "LunchVenue"
 		},
 		"evmVersion": "berlin",
 		"libraries": {},
@@ -289,12 +331,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/LunchVenue.sol": {
-			"keccak256": "0x2a333063a2fb1d3f8bda9ceb5f05678277176d7733af1e4b935323dd4e50610d",
+		"contracts/LunVenue_update.sol": {
+			"keccak256": "0x1db17bd62f707bc75579235baa7e2c6f03c42c2bcf568b11a94e7666435fbd72",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://6d57864b401e81dd60ffe2daecf354affa05c0873e6dff3054459b5361d2e202",
-				"dweb:/ipfs/QmNbNtsEocdqpT5c9Pfs2MU6GtCQFchP5U4NLxBKjuC6Mq"
+				"bzz-raw://aa5a6427bd1abe1f6214d74e7faa122587b1f0b1c94aaa4ab3e043168b1628a5",
+				"dweb:/ipfs/QmZqZTwcoYukUjkA462BcUatfJkFTKwVGWB3xssvJWkHqB"
 			]
 		}
 	},

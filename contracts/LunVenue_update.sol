@@ -29,6 +29,7 @@ contract LunchVenue{
     mapping (uint => Vote) public votes;        //List of votes (vote no, Vote)
     mapping (uint => uint) private _results;    //List of vote counts (restaurant no, no of votes)
     bool public voteOpen = true;                //voting is open
+    bool public isActive = true;                //Contract is active
 
     /**
      * @dev Set manager when contract starts
@@ -39,7 +40,6 @@ contract LunchVenue{
 
     /**
      * @notice Add a new restaurant
-     * @dev To simplify the code, duplication of restaurants isn't checked
      *
      * @param name Restaurant name
      * @return Number of restaurants added so far
@@ -54,13 +54,14 @@ contract LunchVenue{
 
     /**
      * @notice Add a new friend to voter list
-     * @dev To simplify the code duplication of friends is not checked
      *
      * @param friendAddress Friend's account/address
      * @param name Friend's name
      * @return Number of friends added so far
      */
     function addFriend(address friendAddress, string memory name) public restricted returns (uint){
+        require(bytes(name).length > 0, "Name cannot be empty");
+        require(bytes(friends[friendAddress].name).length == 0, "Friend already exists");
         Friend memory f;
         f.name = name;
         f.voted = false;
@@ -120,6 +121,13 @@ contract LunchVenue{
         votedRestaurant = restaurants[highestRestaurant];   //Chosen restaurant
         voteOpen = false;                                   //Voting is now closed
     }
+
+    /** 
+     * @notice stop the contract
+    */
+    function stopContract() public restricted {
+        isActive = false;
+    }
     
     /** 
      * @notice Only the manager can do
@@ -136,4 +144,12 @@ contract LunchVenue{
         require(voteOpen == true, "Can vote only while voting is open.");
         _;
     }
+
+    /**
+     * @notice Only when contract is active
+     */
+     modifier whenActive() {
+        require(isActive == true, "Contract is stopped");
+        _;
+     }
 }
