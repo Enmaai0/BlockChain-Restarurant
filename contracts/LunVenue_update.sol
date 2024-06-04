@@ -28,8 +28,9 @@ contract LunchVenue{
 
     mapping (uint => Vote) public votes;        //List of votes (vote no, Vote)
     mapping (uint => uint) private _results;    //List of vote counts (restaurant no, no of votes)
-    bool public voteOpen = false;                //voting is open
+    bool public voteOpen = false;               //voting is open
     bool public isActive = true;                //Contract is active
+    uint public votingDDL;                      //When voting time is up
 
     /**
      * @dev Set manager when contract starts
@@ -82,6 +83,7 @@ contract LunchVenue{
     */
     function doVote(uint restaurant) public votingOpen whenActive returns (bool validVote){
         require(!friends[msg.sender].voted, "You have already voted a restaurant");
+        require(block.number <= votingDDL, "Voting time has passed");
         validVote = false;                                  //Is the vote valid?
         if (bytes(friends[msg.sender].name).length != 0) {  //Does friend exist?
             if (bytes(restaurants[restaurant]).length != 0) {   //Does restaurant exist?
@@ -92,6 +94,7 @@ contract LunchVenue{
                 v.restaurant = restaurant;
                 numVotes++;
                 votes[numVotes] = v;
+                _results[restaurant++];
             }
         }
         
@@ -109,16 +112,10 @@ contract LunchVenue{
         uint highestVotes = 0;
         uint highestRestaurant = 0;
         
-        for (uint i = 1; i <= numVotes; i++){   //For each vote
-            uint voteCount = 1;
-            if(_results[votes[i].restaurant] > 0) { // Already start counting
-                voteCount += _results[votes[i].restaurant];
-            }
-            _results[votes[i].restaurant] = voteCount;
-        
-            if (voteCount > highestVotes){ // New winner
-                highestVotes = voteCount;
-                highestRestaurant = votes[i].restaurant;
+        for (uint i = 1; i <= numRestaurants; i++){   //For each vote
+            if (_results[i] > highestVotes) {
+                highestVotes = _results[i];
+                highestRestaurant = i;
             }
         }
         votedRestaurant = restaurants[highestRestaurant];   //Chosen restaurant
@@ -132,9 +129,10 @@ contract LunchVenue{
         isActive = false;
     }
 
-    function startVoting() public  restricted whenActive {
+    function startVoting(uint timeout) public  restricted whenActive {
         require(!voteOpen, "Volting is already opened");
         require(numFriends > 0 && numRestaurants > 0, "At least having one restaurants and firends");
+        votingDDL = timeout + block.number;
         voteOpen = true;
     }
     

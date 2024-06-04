@@ -200,7 +200,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "timeout",
+						"type": "uint256"
+					}
+				],
 				"name": "startVoting",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -257,6 +263,19 @@
 					{
 						"internalType": "uint256",
 						"name": "restaurant",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "votingDDL",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -337,11 +356,11 @@
 	},
 	"sources": {
 		"contracts/LunVenue_update.sol": {
-			"keccak256": "0x8d7e74187ade53b4a27ae4f942a83cc3ac668b5cb444b502ce19831ba13126ca",
+			"keccak256": "0x93fb0d392f78e17d48e678e36eae9e6fba2eb8fbdf21e8a0da25630fc757b266",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://5f68683d5d91edb101f1c6fa73389c8ba9615b419d219fa0476bf1093ee127e1",
-				"dweb:/ipfs/QmbpvWAq5ovbjHYMZ8socaafBgQczVhDEzWTbm9FpJeD61"
+				"bzz-raw://f8ced91934d187f79712351ae427603af03f2926b5ffdb3d0d7620670ab34d4d",
+				"dweb:/ipfs/QmcdSC5rNBBwKv3PQXsxRF1AJ3jU2X66orUZ8HZwBNpAo1"
 			]
 		}
 	},
