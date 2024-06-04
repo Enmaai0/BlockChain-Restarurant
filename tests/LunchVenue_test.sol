@@ -47,7 +47,7 @@ contract LunchVenueTest is LunchVenue {
     }
     
     /// Try to add a restaurant as a user other than manager. This should fail
-    /// #sender: account-1
+    /// #sender: account-0
     function setRestaurantFailure() public {
         // Try to catch reason for failure using try-catch . When using
         // try-catch we need 'this' keyword to make function call external
