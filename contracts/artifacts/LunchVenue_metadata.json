@@ -201,6 +201,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "startVoting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "stopContract",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -262,7 +269,6 @@
 			"kind": "dev",
 			"methods": {
 				"addFriend(address,string)": {
-					"details": "To simplify the code duplication of friends is not checked",
 					"params": {
 						"friendAddress": "Friend's account/address",
 						"name": "Friend's name"
@@ -272,7 +278,6 @@
 					}
 				},
 				"addRestaurant(string)": {
-					"details": "To simplify the code, duplication of restaurants isn't checked",
 					"params": {
 						"name": "Restaurant name"
 					},
@@ -332,11 +337,11 @@
 	},
 	"sources": {
 		"contracts/LunVenue_update.sol": {
-			"keccak256": "0x1db17bd62f707bc75579235baa7e2c6f03c42c2bcf568b11a94e7666435fbd72",
+			"keccak256": "0x8d7e74187ade53b4a27ae4f942a83cc3ac668b5cb444b502ce19831ba13126ca",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://aa5a6427bd1abe1f6214d74e7faa122587b1f0b1c94aaa4ab3e043168b1628a5",
-				"dweb:/ipfs/QmZqZTwcoYukUjkA462BcUatfJkFTKwVGWB3xssvJWkHqB"
+				"bzz-raw://5f68683d5d91edb101f1c6fa73389c8ba9615b419d219fa0476bf1093ee127e1",
+				"dweb:/ipfs/QmbpvWAq5ovbjHYMZ8socaafBgQczVhDEzWTbm9FpJeD61"
 			]
 		}
 	},

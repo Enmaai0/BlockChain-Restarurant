@@ -28,7 +28,7 @@ contract LunchVenue{
 
     mapping (uint => Vote) public votes;        //List of votes (vote no, Vote)
     mapping (uint => uint) private _results;    //List of vote counts (restaurant no, no of votes)
-    bool public voteOpen = true;                //voting is open
+    bool public voteOpen = false;                //voting is open
     bool public isActive = true;                //Contract is active
 
     /**
@@ -44,7 +44,8 @@ contract LunchVenue{
      * @param name Restaurant name
      * @return Number of restaurants added so far
      */
-    function addRestaurant(string memory name) public restricted returns (uint){
+    function addRestaurant(string memory name) public restricted whenActive returns (uint){
+        require(!voteOpen, "Cannot add restaurants while voting is open");
         require(!restaurantExists[name], "Restaurant already exists");
         numRestaurants++;
         restaurants[numRestaurants] = name;
@@ -59,7 +60,8 @@ contract LunchVenue{
      * @param name Friend's name
      * @return Number of friends added so far
      */
-    function addFriend(address friendAddress, string memory name) public restricted returns (uint){
+    function addFriend(address friendAddress, string memory name) public restricted whenActive returns (uint){
+        require(!voteOpen, "Cannot add friends while voting is open");
         require(bytes(name).length > 0, "Name cannot be empty");
         require(bytes(friends[friendAddress].name).length == 0, "Friend already exists");
         Friend memory f;
@@ -78,7 +80,8 @@ contract LunchVenue{
      * @return validVote Is the vote valid? A valid vote should be from a registered 
      * friend to a registered restaurant
     */
-    function doVote(uint restaurant) public votingOpen returns (bool validVote){
+    function doVote(uint restaurant) public votingOpen whenActive returns (bool validVote){
+        require(!friends[msg.sender].voted, "You have already voted a restaurant");
         validVote = false;                                  //Is the vote valid?
         if (bytes(friends[msg.sender].name).length != 0) {  //Does friend exist?
             if (bytes(restaurants[restaurant]).length != 0) {   //Does restaurant exist?
@@ -125,8 +128,14 @@ contract LunchVenue{
     /** 
      * @notice stop the contract
     */
-    function stopContract() public restricted {
+    function stopContract() public restricted whenActive {
         isActive = false;
+    }
+
+    function startVoting() public  restricted whenActive {
+        require(!voteOpen, "Volting is already opened");
+        require(numFriends > 0 && numRestaurants > 0, "At least having one restaurants and firends");
+        voteOpen = true;
     }
     
     /** 
